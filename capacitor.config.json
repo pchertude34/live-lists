@@ -1,0 +1,7 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "live-lists",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build"
+}

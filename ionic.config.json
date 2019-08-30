@@ -1,0 +1,7 @@
+{
+  "name": "live-lists",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

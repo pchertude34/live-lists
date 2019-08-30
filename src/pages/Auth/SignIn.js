@@ -55,7 +55,6 @@ const SignIn = () => {
                   onIonChange={handleEmailChange}
                   inputMode="email"
                   required
-                  value={email}
                 ></IonInput>
               </IonItem>
             </IonCol>
@@ -72,7 +71,6 @@ const SignIn = () => {
                   inputMode="password"
                   max={25}
                   required
-                  value={password}
                 ></IonInput>
               </IonItem>
             </IonCol>

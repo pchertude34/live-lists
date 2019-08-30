@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet } from '@ionic/react';
-import SignIn from './pages/SignIn/SignIn';
-import SignUp from './pages/SignUp/SignUp';
+import SignIn from './pages/Auth/SignIn';
+import SignUp from './pages/Auth/SignUp';
 
 import './sass/main.scss';
 import '@ionic/core/css/core.css';

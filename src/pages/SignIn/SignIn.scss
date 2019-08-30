@@ -1,0 +1,47 @@
+@import '../../sass/variables';
+
+.signin-header {
+  height: 20vh;
+  min-height: 8.4rem;
+  position: relative;
+
+  &__logo-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  &__logo {
+    height: 6.8rem;
+  }
+}
+
+.signin-button {
+  width: 80%;
+  margin: 1.6rem auto;
+  font-size: $default-font-size;
+  font-weight: 500;
+  text-transform: uppercase;
+  height: 4rem;
+  border-radius: 0.4rem;
+  display: block;
+
+  &__gradient {
+    color: $color-white;
+    background-image: linear-gradient(
+      to right,
+      $color-primary,
+      $color-tertiary
+    );
+
+    &:active {
+      background-image: linear-gradient(
+        to right,
+        $color-primary-shade,
+        $color-tertiary-shade
+      );
+    }
+  }
+}

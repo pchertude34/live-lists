@@ -4,6 +4,10 @@ import { IonApp, IonRouterOutlet } from '@ionic/react';
 import SignIn from './pages/SignIn/SignIn';
 import SignUp from './pages/SignUp/SignUp';
 
+import './sass/main.scss';
+import '@ionic/core/css/core.css';
+import '@ionic/core/css/ionic.bundle.css';
+
 function App() {
   return (
     <BrowserRouter>

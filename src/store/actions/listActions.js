@@ -2,6 +2,21 @@ export const createList = list => {
   console.log('createList action');
 
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    return Promise.resolve('yay');
+    const firestore = getFirestore();
+
+    dispatch({ type: 'CREATE_LIST_SAVING', payload: list });
+
+    firestore
+      .collection('lists')
+      .add({
+        ...list,
+        createdAt: new Date()
+      })
+      .then(() => {
+        dispatch({ type: 'CREATE_LIST_SUCCESS', payload: list });
+      })
+      .catch(error => {
+        dispatch({ type: 'CREATE_LIST_ERROR', error });
+      });
   };
 };

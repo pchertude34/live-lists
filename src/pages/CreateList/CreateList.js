@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createList } from '../../store/actions/listActions';
+
 import {
   IonPage,
   IonContent,
@@ -15,9 +18,28 @@ import {
 import Header from '../../components/Header/Header';
 
 const CreateList = props => {
+  const [listName, setListName] = useState('');
+  const [listDescription, setListDescription] = useState('');
+
   const handleCancelClicked = () => {
-    console.log('handleCancelClicked');
     props.history.goBack();
+  };
+
+  const handleCreateListClicked = () => {
+    const list = {
+      name: listName,
+      description: listDescription
+    };
+
+    props.createList(list);
+  };
+
+  const handleListNameChange = event => {
+    setListName(event.target.value);
+  };
+
+  const handleListDescriptionChange = event => {
+    setListDescription(event.target.value);
   };
 
   return (
@@ -35,6 +57,7 @@ const CreateList = props => {
               type="text"
               maxlength={56}
               required
+              onIonChange={handleListNameChange}
             ></IonInput>
           </IonItem>
           <IonItem lines="full m-b-lg">
@@ -46,6 +69,7 @@ const CreateList = props => {
               maxlength={256}
               rows={6}
               placeholder="Enter list description"
+              onIonChange={handleListDescriptionChange}
             ></IonTextarea>
           </IonItem>
 
@@ -61,7 +85,11 @@ const CreateList = props => {
                 </IonButton>
               </IonCol>
               <IonCol sizeSm="5" sizeMd="3" className="p-sm">
-                <IonButton color="primary" expand="block">
+                <IonButton
+                  color="primary"
+                  expand="block"
+                  onClick={handleCreateListClicked}
+                >
                   Create
                 </IonButton>
               </IonCol>
@@ -73,4 +101,19 @@ const CreateList = props => {
   );
 };
 
-export default withRouter(CreateList);
+const mapStateToProps = state => {
+  return {
+    createList: state.createList
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    createList: list => dispatch(createList(list))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CreateList));

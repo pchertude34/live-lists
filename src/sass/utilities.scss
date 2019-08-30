@@ -1,12 +1,29 @@
+// PADDINGS
+// NONE
+.p-none {
+  padding: 0;
+}
+.p-l-none {
+  padding-left: 0;
+}
+.p-t-none {
+  padding-top: 0;
+}
+.p-r-none {
+  padding-right: 0;
+}
+.p-b-none {
+  padding-bottom: 0;
+}
+// SMOL
 .p-sm {
   padding: $padding-size;
 }
-
-.p-t-sm {
-  padding-top: $padding-size;
-}
 .p-l-sm {
   padding-left: $padding-size;
+}
+.p-t-sm {
+  padding-top: $padding-size;
 }
 .p-r-sm {
   padding-right: $padding-size;
@@ -15,6 +32,60 @@
   padding-bottom: $padding-size;
 }
 
+// MEDIUM
+.p-md {
+  padding: $padding-size * $md-multiplier;
+}
+.p-l-md {
+  padding-left: $padding-size * $md-multiplier;
+}
+.p-t-md {
+  padding-top: $padding-size * $md-multiplier;
+}
+.p-r-md {
+  padding-right: $padding-size * $md-multiplier;
+}
+.p-b-md {
+  padding-bottom: $padding-size * $md-multiplier;
+}
+
+// LARGE
+.p-md {
+  padding: $padding-size * $lg-multiplier;
+}
+.p-l-md {
+  padding-left: $padding-size * $lg-multiplier;
+}
+.p-t-md {
+  padding-top: $padding-size * $lg-multiplier;
+}
+.p-r-md {
+  padding-right: $padding-size * $lg-multiplier;
+}
+.p-b-md {
+  padding-bottom: $padding-size * $lg-multiplier;
+}
+
+// MARGINS
+// NONE
+.m-none {
+  margin: 0;
+}
+.m-l-none {
+  margin-left: 0;
+}
+.m-t-none {
+  margin-top: 0;
+}
+.m-r-none {
+  margin-right: 0;
+}
+.m-b-none {
+  margin-bottom: 0;
+}
+
+// MARGINS
+// SMOL
 .m-sm {
   margin: $margin-size;
 }
@@ -29,4 +100,56 @@
 }
 .m-b-sm {
   margin-bottom: $margin-size;
+}
+
+// MEDIUM
+.m-md {
+  margin: $margin-size * $md-multiplier;
+}
+.m-l-md {
+  margin-left: $margin-size * $md-multiplier;
+}
+.m-t-md {
+  margin-top: $margin-size * $md-multiplier;
+}
+.m-r-md {
+  margin-right: $margin-size * $md-multiplier;
+}
+.m-b-md {
+  margin-bottom: $margin-size * $md-multiplier;
+}
+// LARGE
+.m-lg {
+  margin: $margin-size * $lg-multiplier;
+}
+.m-l-lg {
+  margin-left: $margin-size * $lg-multiplier;
+}
+.m-t-lg {
+  margin-top: $margin-size * $lg-multiplier;
+}
+.m-r-lg {
+  margin-right: $margin-size * $lg-multiplier;
+}
+.m-b-lg {
+  margin-bottom: $margin-size * $lg-multiplier;
+}
+
+// TEXT
+.text-center {
+  text-align: center;
+}
+
+// COLORS
+.color-gray-lightest {
+  color: $color-light-gray-1;
+}
+
+.color-gray-light {
+  color: $color-light-gray-2;
+}
+
+// SIZING
+.width-full {
+  width: 100%;
 }

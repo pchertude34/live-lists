@@ -6,7 +6,7 @@ export const createList = list => {
 
     dispatch({ type: 'CREATE_LIST_SAVING', payload: list });
 
-    firestore
+    return firestore
       .collection('lists')
       .add({
         ...list,

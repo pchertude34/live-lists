@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { signUp } from '../../store/actions/authActions';
 import {
   IonContent,
   IonInput,
@@ -11,7 +13,7 @@ import {
 
 import './SignIn.scss';
 
-const SignUp = () => {
+const SignUp = props => {
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -36,10 +38,14 @@ const SignUp = () => {
   const handleFormSubmit = event => {
     // Don't reload the page on submit
     event.preventDefault();
-    console.log('email', email);
-    console.log('first name', firstName);
-    console.log('last name', lastName);
-    console.log('password', password);
+    const newUser = {
+      email,
+      firstName,
+      lastName,
+      password
+    };
+
+    props.signUp(newUser);
   };
 
   return (
@@ -142,4 +148,19 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    signUp: newUser => dispatch(signUp(newUser))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignUp);

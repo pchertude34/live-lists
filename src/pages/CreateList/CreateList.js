@@ -31,7 +31,9 @@ const CreateList = props => {
       description: listDescription
     };
 
-    props.createList(list);
+    props.createList(list).then(() => {
+      props.history.goBack();
+    });
   };
 
   const handleListNameChange = event => {

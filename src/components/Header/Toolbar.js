@@ -17,7 +17,7 @@ const Toolbar = props => {
           {props.hasBackButton && <IonBackButton defaultHref="/" text="" />}
         </IonButtons>
         <IonButtons slot="end">
-          <IonMenuButton color="light" autoHide={false} />
+          <IonMenuButton color="light" autoHide={false} menuId="main" />
         </IonButtons>
       </IonToolbar>
     </IonHeader>

@@ -24,3 +24,19 @@ export const signUp = newUser => {
       });
   };
 };
+
+export const signOut = () => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+
+    return firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        dispatch({ type: 'SIGNOUT_SUCCESS' });
+      })
+      .catch(error => {
+        dispatch({ type: 'SIGNOUT_ERROR', error });
+      });
+  };
+};

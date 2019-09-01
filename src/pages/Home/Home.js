@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
 import {
   IonHeader,
   IonContent,
@@ -12,7 +15,8 @@ import {
 import Header from '../../components/Header/Header';
 import MyLists from '../../components/Lists/MyLists';
 
-const Home = () => {
+const Home = props => {
+  console.log('Home props', props);
   return (
     <IonPage>
       <IonHeader>
@@ -31,4 +35,21 @@ const Home = () => {
   );
 };
 
-export default Home;
+const mapStateToProps = (state, ownProps) => {
+  const lists = state.firestore.data.lists;
+  const auth = state.firebase.auth;
+  return {
+    lists: lists,
+    auth
+  };
+};
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect(props => [
+    {
+      collection: 'lists',
+      where: [['editors', 'array-contains', props.auth.uid]]
+    }
+  ])
+)(Home);

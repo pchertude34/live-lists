@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import createListReducer from './createListReducer';
 import authReducer from './authReducer';
-import { firestoreReducer } from 'react-redux-firebase';
+import { firestoreReducer } from 'redux-firestore';
 import { firebaseReducer } from 'react-redux-firebase';
 
 const rootReducer = combineReducers({

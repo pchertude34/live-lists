@@ -9,7 +9,6 @@ import {
   IonItem,
   IonIcon,
   IonList,
-  IonListHeader,
   IonToolbar,
   IonMenuToggle,
   IonLabel

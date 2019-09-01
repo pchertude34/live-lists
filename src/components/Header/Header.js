@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { connect } from 'react-redux';
 import Toolbar from './Toolbar';
 
 import './Header.scss';
@@ -22,4 +22,9 @@ Header.propTypes = {
   hasBackButton: PropTypes.bool
 };
 
-export default Header;
+const mapStateToProps = state => {
+  console.log(state);
+  return {};
+};
+
+export default connect(mapStateToProps)(Header);

@@ -1,8 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import MyListsItem from './MyListsItem';
+import { IonList } from '@ionic/react';
+
 const MyLists = props => {
-  return <div className={props.className}>MyLists</div>;
+  const listItems = (props.lists || []).map(list => {
+    return (
+      <MyListsItem
+        key={list.id}
+        name={list.name}
+        description={list.description}
+        createdAt={list.createdAt}
+      />
+    );
+  });
+
+  return <IonList lines="none">{listItems}</IonList>;
 };
 
 MyLists.propTypes = {

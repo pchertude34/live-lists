@@ -11,12 +11,14 @@ import {
   IonFabButton,
   IonIcon
 } from '@ionic/react';
+import { add } from 'ionicons/icons';
 
 import Header from '../../components/Header/Header';
 import MyLists from '../../components/Lists/MyLists';
 
 const Home = props => {
-  console.log('Home props', props);
+  console.log('Home props', props.lists);
+
   return (
     <IonPage>
       <IonHeader>
@@ -26,17 +28,18 @@ const Home = props => {
         <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <Link to={{ pathname: '/createlist' }}>
             <IonFabButton size="small">
-              <IonIcon name="add" color="light" />
+              <IonIcon icon={add} color="light" />
             </IonFabButton>
           </Link>
         </IonFab>
+        <MyLists lists={props.lists} />
       </IonContent>
     </IonPage>
   );
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const lists = state.firestore.data.lists;
+  const lists = state.firestore.ordered.lists;
   const auth = state.firebase.auth;
   return {
     lists: lists,

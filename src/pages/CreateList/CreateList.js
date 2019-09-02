@@ -59,6 +59,7 @@ const CreateList = props => {
               type="text"
               maxlength={56}
               required
+              placeholder="Enter list description"
               onIonChange={handleListNameChange}
             ></IonInput>
           </IonItem>

@@ -3,6 +3,7 @@ export const createList = list => {
 
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
+    const userId = getState().firebase.auth.uid;
 
     dispatch({ type: 'CREATE_LIST_SAVING', payload: list });
 
@@ -10,7 +11,8 @@ export const createList = list => {
       .collection('lists')
       .add({
         ...list,
-        createdAt: new Date()
+        createdAt: new Date(),
+        editors: [userId]
       })
       .then(() => {
         dispatch({ type: 'CREATE_LIST_SUCCESS', payload: list });

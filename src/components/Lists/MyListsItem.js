@@ -1,17 +1,18 @@
 import React from 'react';
 import moment from 'moment';
+import { withRouter } from 'react-router-dom';
+
 import { IonItem, IonAvatar, IonIcon, IonButton } from '@ionic/react';
 import { more } from 'ionicons/icons';
 
 import './MyListsItem.scss';
 
 const MyListsItem = props => {
-  const handleMoreClicked = () => {
-    console.log('handle more clicked');
-  };
+  const handleMoreClicked = () => {};
 
   const handleItemClicked = () => {
     console.log('handle item clicked');
+    props.history.push(`/list/${props.listId}`);
   };
   return (
     <div>
@@ -47,4 +48,4 @@ const MyListsItem = props => {
   );
 };
 
-export default MyListsItem;
+export default withRouter(MyListsItem);

@@ -9,7 +9,8 @@ import {
   IonPage,
   IonFab,
   IonFabButton,
-  IonIcon
+  IonIcon,
+  IonRouterOutlet
 } from '@ionic/react';
 import { add } from 'ionicons/icons';
 
@@ -21,19 +22,21 @@ const Home = props => {
 
   return (
     <IonPage>
-      <IonHeader>
-        <Header title="My Lists" />
-      </IonHeader>
-      <IonContent>
-        <IonFab vertical="bottom" horizontal="end" slot="fixed">
-          <Link to={{ pathname: '/createlist' }}>
-            <IonFabButton size="small">
-              <IonIcon icon={add} color="light" />
-            </IonFabButton>
-          </Link>
-        </IonFab>
-        <MyLists lists={props.lists} />
-      </IonContent>
+      <IonRouterOutlet>
+        <IonHeader>
+          <Header title="My Lists" />
+        </IonHeader>
+        <IonContent>
+          <IonFab vertical="bottom" horizontal="end" slot="fixed">
+            <Link to={{ pathname: '/createlist' }}>
+              <IonFabButton size="small">
+                <IonIcon icon={add} color="light" />
+              </IonFabButton>
+            </Link>
+          </IonFab>
+          <MyLists lists={props.lists} />
+        </IonContent>
+      </IonRouterOutlet>
     </IonPage>
   );
 };

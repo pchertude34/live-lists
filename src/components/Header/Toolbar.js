@@ -1,31 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import {
-  IonHeader,
   IonToolbar,
   IonButtons,
   IonBackButton,
   IonMenuButton
 } from '@ionic/react';
 
-const Toolbar = props => {
+const Toolbar = () => {
   return (
-    <IonHeader>
-      <IonToolbar color="primary">
-        <IonButtons slot="start">
-          {props.hasBackButton && <IonBackButton defaultHref="/" text="" />}
-        </IonButtons>
-        <IonButtons slot="end">
-          <IonMenuButton color="light" autoHide={false} menuId="main" />
-        </IonButtons>
-      </IonToolbar>
-    </IonHeader>
+    <IonToolbar color="primary">
+      <IonButtons slot="start">
+        <IonBackButton defaultHref="/" text="" />
+      </IonButtons>
+      <IonButtons slot="end">
+        <IonMenuButton color="light" autoHide={false} menuId="main" />
+      </IonButtons>
+    </IonToolbar>
   );
 };
 
-Toolbar.propTypes = {
-  hasBackButton: PropTypes.bool
-};
-
-export default Toolbar;
+export default withRouter(Toolbar);

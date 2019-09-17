@@ -13,12 +13,7 @@ import './EditModal.scss';
 const EditItemModal = props => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [updatedItemName, setUpdatedItemName] = useState('');
-  // const [inputField, setInputField] = useState();
   const inputRef = useRef(null);
-  // const inputRef = useCallback(node => {
-  //   console.log('here');
-  //   console.log(node.setFocus());
-  // });
 
   useEffect(() => {
     setSelectedItem(props.item);
@@ -27,18 +22,12 @@ const EditItemModal = props => {
 
   useEffect(() => {
     if (props.showPopover && inputRef) {
-      console.log('itemInput', inputRef);
       inputRef.current.setFocus();
     }
   }, [props.showPopover, inputRef]);
 
   const handleItemNameChange = event => {
     setUpdatedItemName(event.target.value);
-  };
-
-  const handleOnFocus = e => {
-    console.log('onFocus');
-    console.log('e', e);
   };
 
   return (
@@ -56,7 +45,6 @@ const EditItemModal = props => {
           value={updatedItemName}
           onIonChange={handleItemNameChange}
           ref={inputRef}
-          onFocus={handleOnFocus}
         />
       </IonItem>
       <IonButton color="primary" className="m-t-md m-b-md">

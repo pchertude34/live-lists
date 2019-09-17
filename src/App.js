@@ -18,7 +18,7 @@ function App() {
   return (
     <IonApp>
       <IonReactRouter>
-        {/* <Menu /> */}
+        <Menu />
         <IonPage id="main">
           {/* <ViewManager> */}
           {/* <React.Fragment> */}

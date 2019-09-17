@@ -12,15 +12,22 @@ import {
 import { trash, create } from 'ionicons/icons';
 
 const ListItem = props => {
-  const handleMoreClicked = () => {};
-
   return (
     <IonItemSliding>
       <IonItemOptions>
-        <IonItemOption color="danger" type="button">
+        <IonItemOption
+          color="danger"
+          type="button"
+          style={{ padding: '.8rem' }}
+          onClick={props.handleDeleteClicked}
+        >
           <IonIcon slot="icon-only" icon={trash} />
         </IonItemOption>
-        <IonItemOption type="button">
+        <IonItemOption
+          type="button"
+          style={{ padding: '.8rem' }}
+          onClick={props.handleEditClicked}
+        >
           <IonIcon slot="icon-only" icon={create} />
         </IonItemOption>
       </IonItemOptions>
@@ -38,21 +45,15 @@ const ListItem = props => {
             <i>some subtext</i>
           </div>
         </div>
-        {/* <IonButton
-        fill="clear"
-        slot="end"
-        size="large"
-        onClick={handleMoreClicked}
-        >
-        <IonIcon icon={more} />
-      </IonButton> */}
       </IonItem>
     </IonItemSliding>
   );
 };
 
 ListItem.propTypes = {
-  handleCheckClicked: PropTypes.func.isRequired
+  handleCheckClicked: PropTypes.func.isRequired,
+  handleDeleteClicked: PropTypes.func.isRequired,
+  handleEditClicked: PropTypes.func.isRequired
 };
 
 export default ListItem;

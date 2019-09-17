@@ -1,0 +1,13 @@
+// Xtra small screen break point
+@mixin xs {
+  @media (min-width: 0px) {
+    @content;
+  }
+}
+
+// Small screen break point
+@mixin sm {
+  @media (min-width: #{$screen-sm-min}) {
+    @content;
+  }
+}

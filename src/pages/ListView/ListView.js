@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import { createListItem, checkListItem } from '../../store/actions/listActions';
+import {
+  createListItem,
+  checkListItem,
+  deleteListItem
+} from '../../store/actions/listActions';
 import uuid from 'uuid/v4';
 import Header from '../../components/Header/Header';
 import {
@@ -18,9 +22,12 @@ import {
 import { add } from 'ionicons/icons';
 
 import ListItem from '../../components/Lists/ListItem';
+import EditItemModal from '../../components/Modals/EditItemModal';
 
 const ListView = props => {
   const [newListItem, setNewListItem] = useState('');
+  const [showPopover, setShowPopover] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState('');
 
   const canSave = () => {
     return newListItem.trim().length > 0;
@@ -47,6 +54,16 @@ const ListView = props => {
     props.checkListItem(listId, itemId, isChecked);
   };
 
+  const handleDeleteClicked = itemId => {
+    const listId = props.match.params.listId;
+    props.deleteListItem(listId, itemId);
+  };
+
+  const handleEditClicked = itemId => {
+    setShowPopover(true);
+    setSelectedItemId(itemId);
+  };
+
   const listItems = Object.keys(props.listItems || {}).map(itemId => {
     // console.log('itemId', itemId);
     // console.log('props.listItems', props.listItems);
@@ -56,6 +73,8 @@ const ListView = props => {
         key={itemId}
         item={props.listItems[itemId]}
         handleCheckClicked={isChecked => handleCheckClicked(itemId, isChecked)}
+        handleEditClicked={() => handleEditClicked(itemId)}
+        handleDeleteClicked={() => handleDeleteClicked(itemId)}
       />
     );
   });
@@ -85,6 +104,11 @@ const ListView = props => {
         </IonItem>
       </IonHeader>
       <IonContent>
+        <EditItemModal
+          item={(props.listItems && props.listItems[selectedItemId]) || {}}
+          showPopover={showPopover}
+          dismiss={() => setShowPopover(false)}
+        />
         <IonList>
           {listItems ? (
             listItems
@@ -115,7 +139,8 @@ const mapDispatchToProps = dispatch => {
     createListItem: (listItem, listId) =>
       dispatch(createListItem(listItem, listId)),
     checkListItem: (listId, listItem, isChecked) =>
-      dispatch(checkListItem(listId, listItem, isChecked))
+      dispatch(checkListItem(listId, listItem, isChecked)),
+    deleteListItem: (listId, itemId) => dispatch(deleteListItem(listId, itemId))
   };
 };
 

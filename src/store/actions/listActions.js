@@ -59,3 +59,24 @@ export const checkListItem = (listId, itemId, isChecked) => {
       });
   };
 };
+
+export const deleteListItem = (listId, itemId) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+
+    return firestore
+      .collection('listItems')
+      .doc(listId)
+      .update({
+        [`${itemId}`]: firestore.FieldValue.delete()
+      })
+      .then(() => {
+        dispatch({
+          type: 'DELETE_LIST_ITEM_SUCCES'
+        });
+      })
+      .catch(error => {
+        dispatch({ type: 'DELETE_LIST_ITEM_ERROR', error });
+      });
+  };
+};

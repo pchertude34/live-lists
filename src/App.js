@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { IonApp, IonPage, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter, ViewManager } from '@ionic/react-router';
 
@@ -18,19 +18,17 @@ function App() {
   return (
     <IonApp>
       <IonReactRouter>
-        <Menu />
+        {/* <Menu /> */}
         <IonPage id="main">
           {/* <ViewManager> */}
           {/* <React.Fragment> */}
           {/* <IonSplitPane contentId="main"> */}
           <IonRouterOutlet>
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/signin" component={SignIn} />
-              <Route path="/signup" component={SignUp} />
-              <Route path="/createlist" component={CreateList} />
-              <Route path="/list/:listId" component={ListView} />
-            </Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/signin" component={SignIn} />
+            <Route path="/signup" component={SignUp} />
+            <Route path="/createlist" component={CreateList} />
+            <Route path="/list/:listId" component={ListView} />
           </IonRouterOutlet>
           {/* </ViewManager> */}
         </IonPage>

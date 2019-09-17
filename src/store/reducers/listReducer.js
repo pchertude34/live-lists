@@ -14,6 +14,10 @@ const createListItemReducer = (state = initialState, action) => {
       return { ...state, error: null };
     case 'CHECK_LIST_ITEM_ERROR':
       return { ...state, error: action.error };
+    case 'DELETE_LIST_ITEM_SUCCESS':
+      return { ...state, error: null };
+    case 'DELETE_LIST_ITEM_ERROR':
+      return { ...state, error: action.error };
     default:
       return state;
   }

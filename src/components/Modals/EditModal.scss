@@ -1,0 +1,16 @@
+@import '../../sass/variables';
+@import '../../sass/mixins';
+
+.modal {
+  text-align: center;
+  padding: 1.2rem;
+  min-width: 10rem;
+
+  @include xs {
+    --min-width: 70%;
+  }
+
+  @include sm {
+    --min-width: 40%;
+  }
+}

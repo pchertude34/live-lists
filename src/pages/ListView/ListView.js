@@ -34,7 +34,7 @@ const ListView = props => {
     return newListItem.trim().length > 0;
   };
 
-  const handleSaveItemClicked = () => {
+  const handleSaveNewListItem = () => {
     const trimmedNewListItem = newListItem.trim();
 
     // If there are no actual letters in the list item, don't save it
@@ -66,8 +66,6 @@ const ListView = props => {
   };
 
   const handleEditSaveClicked = (itemId, updatedName) => {
-    console.log('itemId', itemId);
-    console.log('updatedName', updatedName);
     const trimmedName = updatedName.trim();
 
     // If there are no actual letters, don't save.
@@ -85,6 +83,12 @@ const ListView = props => {
       .catch(() => {
         setShowPopover(false);
       });
+  };
+
+  const handleKeyPress = event => {
+    if (event.keyCode === 13) {
+      handleSaveNewListItem();
+    }
   };
 
   const listItems = Object.keys(props.listItems || {}).map(itemId => {
@@ -112,10 +116,11 @@ const ListView = props => {
             value={newListItem}
             maxlength={85}
             onIonChange={event => setNewListItem(event.target.value)}
+            onKeyUp={handleKeyPress}
           ></IonInput>
           <IonButton
             fill="clear"
-            onClick={handleSaveItemClicked}
+            onClick={handleSaveNewListItem}
             disabled={!canSave()}
           >
             <IonIcon

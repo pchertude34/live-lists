@@ -9,6 +9,10 @@ const createListItemReducer = (state = initialState, action) => {
       return { ...state, items: action.payload, error: null };
     case 'CREATE_LIST_ITEM_ERROR':
       return { ...state, error: action.error };
+    case 'EDIT_LIST_ITEM_SUCCESS':
+      return { ...state, items: action.payload, error: null };
+    case 'EDIT_LIST_ITEM_ERROR':
+      return { ...state, error: action.error };
     case 'CHECK_LIST_ITEM_SUCCESS':
       console.log(state);
       return { ...state, error: null };

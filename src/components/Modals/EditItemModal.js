@@ -30,8 +30,14 @@ const EditItemModal = props => {
     setUpdatedItemName(event.target.value);
   };
 
-  const handleSaveClicked = () => {
+  const handleSave = () => {
     props.onSave(updatedItemName);
+  };
+
+  const handleKeyPress = event => {
+    if (event.keyCode === 13) {
+      handleSave();
+    }
   };
 
   return (
@@ -49,13 +55,10 @@ const EditItemModal = props => {
           value={updatedItemName}
           onIonChange={handleItemNameChange}
           ref={inputRef}
+          onKeyUp={handleKeyPress}
         />
       </IonItem>
-      <IonButton
-        color="primary"
-        className="m-t-md m-b-md"
-        onClick={handleSaveClicked}
-      >
+      <IonButton color="primary" className="m-t-md m-b-md" onClick={handleSave}>
         SAVE
       </IonButton>
     </IonPopover>

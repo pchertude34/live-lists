@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
@@ -29,6 +29,7 @@ const ListView = props => {
   const [newListItem, setNewListItem] = useState('');
   const [showPopover, setShowPopover] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState('');
+  const listRef = useRef(null);
 
   const canSave = () => {
     return newListItem.trim().length > 0;
@@ -78,9 +79,11 @@ const ListView = props => {
     props
       .editListItem(listId, updatedListItem)
       .then(() => {
+        listRef.current.closeSlidingItems();
         setShowPopover(false);
       })
       .catch(() => {
+        listRef.current.closeSlidingItems();
         setShowPopover(false);
       });
   };
@@ -140,7 +143,7 @@ const ListView = props => {
           }
           dismiss={() => setShowPopover(false)}
         />
-        <IonList>
+        <IonList ref={listRef}>
           {listItems ? (
             listItems
           ) : (

@@ -24,6 +24,7 @@ import { add } from 'ionicons/icons';
 
 import ListItem from '../../components/Lists/ListItem';
 import EditItemModal from '../../components/Modals/EditItemModal';
+import { MY_LISTS_STORE } from '../../constants';
 
 const ListView = props => {
   const [newListItem, setNewListItem] = useState('');
@@ -158,7 +159,9 @@ const mapStateToProps = (state, ownProps) => {
   const listId = ownProps.match.params.listId;
 
   return {
-    list: state.firestore.data.lists ? state.firestore.data.lists[listId] : {},
+    list: state.firestore.data[MY_LISTS_STORE]
+      ? state.firestore.data[MY_LISTS_STORE][listId]
+      : {},
     listItems: state.firestore.data.listItems
       ? state.firestore.data.listItems[listId]
       : {}

@@ -32,3 +32,9 @@
     font-weight: 300;
   }
 }
+
+.list-item {
+  &__button {
+    z-index: 1000;
+  }
+}

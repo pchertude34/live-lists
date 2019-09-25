@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import { IonApp, IonPage, IonRouterOutlet } from '@ionic/react';
+import { IonApp, IonPage, IonRouterOutlet, IonSplitPane } from '@ionic/react';
 import { IonReactRouter, ViewManager } from '@ionic/react-router';
 
 import CreateList from './pages/CreateList/CreateList';
@@ -18,11 +18,11 @@ function App() {
   return (
     <IonApp>
       <IonReactRouter>
+        {/* <IonSplitPane contentId="main"> */}
         <Menu />
         <IonPage id="main">
           {/* <ViewManager> */}
           {/* <React.Fragment> */}
-          {/* <IonSplitPane contentId="main"> */}
           <IonRouterOutlet>
             <Route exact path="/" component={Home} />
             <Route path="/signin" component={SignIn} />
@@ -33,8 +33,8 @@ function App() {
           {/* </ViewManager> */}
         </IonPage>
         {/* </React.Fragment> */}
+        {/* </IonSplitPane> */}
       </IonReactRouter>
-      {/* </IonSplitPane> */}
     </IonApp>
   );
 }

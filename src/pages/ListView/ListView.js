@@ -95,10 +95,7 @@ const ListView = props => {
   };
 
   const listItems = Object.keys(props.listItems || {}).map(itemId => {
-    // console.log('itemId', itemId);
-    // console.log('props.listItems', props.listItems);
     return (
-      // <div
       <ListItem
         key={itemId}
         item={props.listItems[itemId]}

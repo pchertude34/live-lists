@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase';
+import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 import {
   createListItem,
   editListItem,
@@ -23,6 +23,7 @@ import {
 import { add } from 'ionicons/icons';
 
 import ListItem from '../../components/Lists/ListItem';
+import EmptyListItem from '../../components/Lists/EmptyListItem';
 import EditItemModal from '../../components/Modals/EditItemModal';
 import { MY_LISTS_STORE } from '../../constants';
 
@@ -141,15 +142,11 @@ const ListView = props => {
           }
           dismiss={() => setShowPopover(false)}
         />
-        <IonList ref={listRef}>
-          {listItems ? (
-            listItems
-          ) : (
-            <IonItem lines="none" color="light">
-              There are not items in the list yet
-            </IonItem>
-          )}
-        </IonList>
+        {isLoaded(props.listItems) && !listItems.length > 0 ? (
+          <EmptyListItem>There are no items in this list yet.</EmptyListItem>
+        ) : (
+          <IonList ref={listRef}>{listItems}</IonList>
+        )}
       </IonContent>
     </IonPage>
   );

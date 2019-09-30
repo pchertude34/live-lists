@@ -37,4 +37,10 @@
   &__button {
     z-index: 1000;
   }
+
+  &__empty {
+    height: 0.8rem;
+    width: 100%;
+    color: $color-text-light-gray-1;
+  }
 }

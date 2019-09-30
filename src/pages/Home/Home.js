@@ -18,8 +18,6 @@ import MyLists from '../../components/Lists/MyLists';
 import { MY_LISTS_STORE } from '../../constants';
 
 const Home = props => {
-  console.log('Home props', props.lists);
-
   return (
     <IonPage>
       <IonHeader>
@@ -50,14 +48,12 @@ const mapStateToProps = (state, ownProps) => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect(props => {
-    console.log('props', props);
-    return [
-      {
-        collection: 'lists',
-        where: [['editors', 'array-contains', props.auth.uid]],
-        storeAs: MY_LISTS_STORE
-      }
-    ];
-  })
+  firestoreConnect(props => [
+    {
+      collection: 'lists',
+      where: [['editors', 'array-contains', props.auth.uid]],
+      orderBy: ['createdAt', 'desc'],
+      storeAs: MY_LISTS_STORE
+    }
+  ])
 )(Home);

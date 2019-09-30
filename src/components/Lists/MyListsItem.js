@@ -11,9 +11,9 @@ const MyListsItem = props => {
   const handleMoreClicked = () => {};
 
   const handleItemClicked = () => {
-    console.log('handle item clicked');
     props.history.push(`/list/${props.listId}`);
   };
+
   return (
     <div>
       <div className="item__header">

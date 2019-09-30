@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 
@@ -25,7 +26,9 @@ const MyListsItem = props => {
       </div>
       <IonItem color="light" button detail={false} onClick={handleItemClicked}>
         <IonAvatar slot="start">
-          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
+          <div className="item__initials">
+            <div className="item__initials--text">{props.initials}</div>
+          </div>
         </IonAvatar>
         <div className="item__text">
           <div className="item__title">{props.name}</div>
@@ -46,6 +49,14 @@ const MyListsItem = props => {
       </IonItem>
     </div>
   );
+};
+
+MyListsItem.propTypes = {
+  createdAt: PropTypes.string.isRequired,
+  updatedAt: PropTypes.string,
+  initials: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
 };
 
 export default withRouter(MyListsItem);

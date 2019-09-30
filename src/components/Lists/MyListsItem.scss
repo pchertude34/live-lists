@@ -31,6 +31,25 @@
     font-size: 1.4rem;
     font-weight: 300;
   }
+
+  &__initials {
+    position: relative;
+    background-color: $color-secondary;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 50%;
+
+    &--text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      color: $color-white;
+      font-weight: 600;
+      transform: translate(-50%, -50%);
+    }
+  }
 }
 
 .list-item {

@@ -21,6 +21,26 @@ export const createList = list => {
   };
 };
 
+export const removeList = listId => {
+  return (dispatch, getState, { getFirestore }) => {
+    const firestore = getFirestore();
+    const userId = getState().firebase.auth.uid;
+
+    return firestore
+      .collection('lists')
+      .doc(listId)
+      .update({
+        editors: firestore.FieldValue.arrayRemove(userId)
+      })
+      .then(() => {
+        dispatch({ type: 'REMOVE_LIST_SUCCESS' });
+      })
+      .catch(error => {
+        dispatch({ type: 'REMOVE_LIST_ERROR', error });
+      });
+  };
+};
+
 export const createListItem = (item, listId) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();

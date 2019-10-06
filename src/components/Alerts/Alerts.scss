@@ -1,0 +1,7 @@
+@import '../../sass/variables';
+
+.alert-delete-button {
+  // We need important to override ionic forced styles
+  color: $color-danger !important;
+  font-weight: 500;
+}

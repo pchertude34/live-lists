@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {
-  IonItem,
-  IonIcon,
-  IonCheckbox,
-  IonItemSliding,
-  IonItemOptions,
-  IonItemOption,
-  IonButton
-} from '@ionic/react';
+import { IonItem, IonIcon, IonCheckbox, IonButton } from '@ionic/react';
 import { trash, create } from 'ionicons/icons';
+import ListItemSizeWrapper from './ListItemSizeWrapper';
 
 import './MyListsItem.scss';
 
@@ -18,6 +11,10 @@ const ListItem = props => {
   useEffect(() => {
     updateBreakpoint();
     window.addEventListener('resize', updateBreakpoint);
+
+    return function cleanup() {
+      window.removeEventListener('resize', updateBreakpoint);
+    };
   }, []);
 
   const updateBreakpoint = () => {
@@ -35,7 +32,7 @@ const ListItem = props => {
   };
 
   return (
-    <SizeWrapper {...props} isLargeScreen={isLargeScreen}>
+    <ListItemSizeWrapper {...props} isLargeScreen={isLargeScreen}>
       <IonItem
         color="light"
         lines="none"
@@ -76,50 +73,9 @@ const ListItem = props => {
           </React.Fragment>
         )}
       </IonItem>
-    </SizeWrapper>
+    </ListItemSizeWrapper>
   );
 };
-
-/**
- * Conditionally wrap the child component for small screen sizes.
- * Return the component by itself for large screen sizes
- * @param {any} props Props from the ListItem component.
- */
-const SizeWrapper = props => {
-  return !props.isLargeScreen
-    ? listWrapper(props.children, props)
-    : props.children;
-};
-
-/**
- * Add IonItemSliding the the Child Component
- * @param {React.Component} ChildComponent The component to render
- * @param {any} props Props that were passed to the child component
- */
-function listWrapper(ChildComponent, props) {
-  return (
-    <IonItemSliding>
-      <IonItemOptions>
-        <IonItemOption
-          color="danger"
-          type="button"
-          style={{ padding: '.8rem' }}
-          onClick={props.handleDeleteClicked}
-        >
-          <IonIcon slot="icon-only" icon={trash} />
-        </IonItemOption>
-        <IonItemOption
-          type="button"
-          style={{ padding: '.8rem' }}
-          onClick={props.handleEditClicked}
-        >
-          <IonIcon slot="icon-only" icon={create} />
-        </IonItemOption>
-      </IonItemOptions>
-      {ChildComponent}
-    </IonItemSliding>
-  );
-}
 
 ListItem.propTypes = {
   handleCheckClicked: PropTypes.func.isRequired,

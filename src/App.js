@@ -9,6 +9,8 @@ import SignIn from './pages/Auth/SignIn';
 import SignUp from './pages/Auth/SignUp';
 import ListView from './pages/ListView/ListView';
 
+import PrivateRoute from './hoc/PrivateRoute';
+
 import './sass/main.scss';
 import '@ionic/core/css/core.css';
 import '@ionic/core/css/ionic.bundle.css';
@@ -24,11 +26,11 @@ function App() {
           {/* <React.Fragment> */}
           {/* <IonSplitPane contentId="main"> */}
           <IonRouterOutlet>
-            <Route exact path="/" component={Home} />
+            <PrivateRoute exact path="/" component={Home} />
             <Route path="/signin" component={SignIn} />
             <Route path="/signup" component={SignUp} />
-            <Route path="/createlist" component={CreateList} />
-            <Route path="/list/:listId" component={ListView} />
+            <PrivateRoute path="/createlist" component={CreateList} />
+            <PrivateRoute path="/list/:listId" component={ListView} />
           </IonRouterOutlet>
           {/* </ViewManager> */}
         </IonPage>

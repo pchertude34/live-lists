@@ -30,6 +30,10 @@ const EditItemModal = props => {
     setUpdatedItemName(event.target.value);
   };
 
+  const handleSaveClicked = () => {
+    props.onSave(updatedItemName);
+  };
+
   return (
     <IonPopover
       isOpen={props.showPopover}
@@ -47,7 +51,11 @@ const EditItemModal = props => {
           ref={inputRef}
         />
       </IonItem>
-      <IonButton color="primary" className="m-t-md m-b-md">
+      <IonButton
+        color="primary"
+        className="m-t-md m-b-md"
+        onClick={handleSaveClicked}
+      >
         SAVE
       </IonButton>
     </IonPopover>
@@ -57,7 +65,8 @@ const EditItemModal = props => {
 EditItemModal.propTypes = {
   item: PropTypes.any.isRequired,
   showPopover: PropTypes.bool.isRequired,
-  dismiss: PropTypes.func.isRequired
+  dismiss: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired
 };
 
 export default EditItemModal;

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import {
   createListItem,
+  editListItem,
   checkListItem,
   deleteListItem
 } from '../../store/actions/listActions';
@@ -64,6 +65,28 @@ const ListView = props => {
     setSelectedItemId(itemId);
   };
 
+  const handleEditSaveClicked = (itemId, updatedName) => {
+    console.log('itemId', itemId);
+    console.log('updatedName', updatedName);
+    const trimmedName = updatedName.trim();
+
+    // If there are no actual letters, don't save.
+    if (trimmedName.length === 0) return;
+
+    const updatedListItem = {
+      [itemId]: { ...props.listItems[itemId], name: trimmedName }
+    };
+    const listId = props.match.params.listId;
+    props
+      .editListItem(listId, updatedListItem)
+      .then(() => {
+        setShowPopover(false);
+      })
+      .catch(() => {
+        setShowPopover(false);
+      });
+  };
+
   const listItems = Object.keys(props.listItems || {}).map(itemId => {
     // console.log('itemId', itemId);
     // console.log('props.listItems', props.listItems);
@@ -107,6 +130,9 @@ const ListView = props => {
         <EditItemModal
           item={(props.listItems && props.listItems[selectedItemId]) || {}}
           showPopover={showPopover}
+          onSave={updatedName =>
+            handleEditSaveClicked(selectedItemId, updatedName)
+          }
           dismiss={() => setShowPopover(false)}
         />
         <IonList>
@@ -138,6 +164,8 @@ const mapDispatchToProps = dispatch => {
   return {
     createListItem: (listItem, listId) =>
       dispatch(createListItem(listItem, listId)),
+    editListItem: (listId, listItem) =>
+      dispatch(editListItem(listId, listItem)),
     checkListItem: (listId, listItem, isChecked) =>
       dispatch(checkListItem(listId, listItem, isChecked)),
     deleteListItem: (listId, itemId) => dispatch(deleteListItem(listId, itemId))
@@ -156,7 +184,8 @@ export default compose(
     },
     {
       collection: 'listItems',
-      doc: props.match.params.listId
+      doc: props.match.params.listId,
+      queryParams: ['name']
     }
   ])
 )(ListView);

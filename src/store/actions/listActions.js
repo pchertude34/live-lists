@@ -38,6 +38,23 @@ export const createListItem = (item, listId) => {
   };
 };
 
+export const editListItem = (listId, item) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+
+    return firestore
+      .collection('listItems')
+      .doc(listId)
+      .update(item)
+      .then(() => {
+        dispatch({ type: 'EDIT_LIST_ITEM_SUCCESS', payload: item });
+      })
+      .catch(error => {
+        dispatch({ type: 'EDIT_LIST_ITEM_ERROR', error });
+      });
+  };
+};
+
 export const checkListItem = (listId, itemId, isChecked) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();

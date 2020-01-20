@@ -11,6 +11,7 @@ const MyLists = props => {
         key={list.id}
         listId={list.id}
         name={list.name}
+        initials={list.initials}
         description={list.description}
         createdAt={list.createdAt}
       />

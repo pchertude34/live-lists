@@ -17,6 +17,14 @@ import {
 } from '@ionic/react';
 import Header from '../../components/Header/Header';
 
+function parseInitials(name) {
+  return name
+    .split(' ')
+    .map(word => word[0].toUpperCase())
+    .slice(0, 2)
+    .join('');
+}
+
 const CreateList = props => {
   const [listName, setListName] = useState('');
   const [listDescription, setListDescription] = useState('');
@@ -28,7 +36,8 @@ const CreateList = props => {
   const handleCreateListClicked = () => {
     const list = {
       name: listName,
-      description: listDescription
+      description: listDescription,
+      initials: parseInitials(listName)
     };
 
     props.createList(list).then(() => {

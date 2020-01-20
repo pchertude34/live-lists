@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import {
   IonPopover,
@@ -34,6 +34,16 @@ const EditItemModal = props => {
     props.onSave(updatedItemName);
   };
 
+  const handleSave = () => {
+    props.onSave(updatedItemName);
+  };
+
+  const handleKeyPress = event => {
+    if (event.keyCode === 13) {
+      handleSave();
+    }
+  };
+
   return (
     <IonPopover
       isOpen={props.showPopover}
@@ -49,13 +59,10 @@ const EditItemModal = props => {
           value={updatedItemName}
           onIonChange={handleItemNameChange}
           ref={inputRef}
+          onKeyUp={handleKeyPress}
         />
       </IonItem>
-      <IonButton
-        color="primary"
-        className="m-t-md m-b-md"
-        onClick={handleSaveClicked}
-      >
+      <IonButton color="primary" className="m-t-md m-b-md" onClick={handleSave}>
         SAVE
       </IonButton>
     </IonPopover>

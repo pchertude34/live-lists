@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { firestoreConnect } from 'react-redux-firebase';
+import { firestoreConnect, isLoaded } from 'react-redux-firebase';
 import {
   createListItem,
   editListItem,
@@ -23,18 +23,21 @@ import {
 import { add } from 'ionicons/icons';
 
 import ListItem from '../../components/Lists/ListItem';
+import EmptyListItem from '../../components/Lists/EmptyListItem';
 import EditItemModal from '../../components/Modals/EditItemModal';
+import { MY_LISTS_STORE } from '../../constants';
 
 const ListView = props => {
   const [newListItem, setNewListItem] = useState('');
   const [showPopover, setShowPopover] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState('');
+  const listRef = useRef(null);
 
   const canSave = () => {
     return newListItem.trim().length > 0;
   };
 
-  const handleSaveItemClicked = () => {
+  const handleSaveNewListItem = () => {
     const trimmedNewListItem = newListItem.trim();
 
     // If there are no actual letters in the list item, don't save it
@@ -66,8 +69,6 @@ const ListView = props => {
   };
 
   const handleEditSaveClicked = (itemId, updatedName) => {
-    console.log('itemId', itemId);
-    console.log('updatedName', updatedName);
     const trimmedName = updatedName.trim();
 
     // If there are no actual letters, don't save.
@@ -83,15 +84,19 @@ const ListView = props => {
         setShowPopover(false);
       })
       .catch(() => {
+        listRef.current.closeSlidingItems();
         setShowPopover(false);
       });
   };
 
+  const handleKeyPress = event => {
+    if (event.keyCode === 13) {
+      handleSaveNewListItem();
+    }
+  };
+
   const listItems = Object.keys(props.listItems || {}).map(itemId => {
-    // console.log('itemId', itemId);
-    // console.log('props.listItems', props.listItems);
     return (
-      // <div
       <ListItem
         key={itemId}
         item={props.listItems[itemId]}
@@ -112,10 +117,11 @@ const ListView = props => {
             value={newListItem}
             maxlength={85}
             onIonChange={event => setNewListItem(event.target.value)}
+            onKeyUp={handleKeyPress}
           ></IonInput>
           <IonButton
             fill="clear"
-            onClick={handleSaveItemClicked}
+            onClick={handleSaveNewListItem}
             disabled={!canSave()}
           >
             <IonIcon
@@ -135,15 +141,11 @@ const ListView = props => {
           }
           dismiss={() => setShowPopover(false)}
         />
-        <IonList>
-          {listItems ? (
-            listItems
-          ) : (
-            <IonItem lines="none" color="light">
-              There are not items in the list yet
-            </IonItem>
-          )}
-        </IonList>
+        {isLoaded(props.listItems) && !listItems.length > 0 ? (
+          <EmptyListItem>There are no items in this list yet.</EmptyListItem>
+        ) : (
+          <IonList ref={listRef}>{listItems}</IonList>
+        )}
       </IonContent>
     </IonPage>
   );
@@ -153,7 +155,9 @@ const mapStateToProps = (state, ownProps) => {
   const listId = ownProps.match.params.listId;
 
   return {
-    list: state.firestore.data.lists ? state.firestore.data.lists[listId] : {},
+    list: state.firestore.data[MY_LISTS_STORE]
+      ? state.firestore.data[MY_LISTS_STORE][listId]
+      : {},
     listItems: state.firestore.data.listItems
       ? state.firestore.data.listItems[listId]
       : {}
@@ -173,10 +177,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect(props => [
     {
       collection: 'lists',

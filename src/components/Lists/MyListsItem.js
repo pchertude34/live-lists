@@ -1,19 +1,38 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 
 import { IonItem, IonAvatar, IonIcon, IonButton } from '@ionic/react';
 import { more } from 'ionicons/icons';
+import ListItemSizeWrapper from './ListItemSizeWrapper';
 
 import './MyListsItem.scss';
 
 const MyListsItem = props => {
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
+  useEffect(() => {
+    updateBreakpoint();
+    window.addEventListener('resize', updateBreakpoint);
+
+    return function cleanup() {
+      window.removeEventListener('resize', updateBreakpoint);
+    };
+  }, []);
+
+  const updateBreakpoint = () => {
+    window.innerWidth > 576 ? setIsLargeScreen(true) : setIsLargeScreen(false);
+  };
+
   const handleMoreClicked = () => {};
 
-  const handleItemClicked = () => {
-    console.log('handle item clicked');
-    props.history.push(`/list/${props.listId}`);
+  const handleItemClicked = event => {
+    console.log('event.target', event.target);
+    if (event.target.id !== 'edit-button') {
+      props.history.push(`/list/${props.listId}`);
+    }
   };
+
   return (
     <div>
       <div className="item__header">
@@ -23,29 +42,49 @@ const MyListsItem = props => {
             : `Created ${moment(props.createdAt.toDate()).fromNow()}`}
         </i>
       </div>
-      <IonItem color="light" button detail={false} onClick={handleItemClicked}>
-        <IonAvatar slot="start">
-          <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y" />
-        </IonAvatar>
-        <div className="item__text">
-          <div className="item__title">{props.name}</div>
-          <div className="item__description">{props.description}</div>
-          {/* Shared with subtext */}
-          {/* <div className="item__subtext">
+      <ListItemSizeWrapper {...props} isLargeScreen={isLargeScreen}>
+        <IonItem
+          color="light"
+          button
+          detail={false}
+          onClick={handleItemClicked}
+        >
+          <IonAvatar slot="start">
+            <div className="item__initials">
+              <div className="item__initials--text">{props.initials}</div>
+            </div>
+          </IonAvatar>
+          <div className="item__text">
+            <div className="item__title">{props.name}</div>
+            <div className="item__description">{props.description}</div>
+            {/* Shared with subtext */}
+            {/* <div className="item__subtext">
             <i>Shared with Alyssa and 2 others</i>
           </div> */}
-        </div>
-        <IonButton
-          fill="clear"
-          slot="end"
-          size="large"
-          onClick={handleMoreClicked}
-        >
-          <IonIcon icon={more} />
-        </IonButton>
-      </IonItem>
+          </div>
+          {/* <IonButton
+            id="edit-button"
+            fill="clear"
+            slot="end"
+            size="large"
+            onClick={handleMoreClicked}
+            className="list-item__button"
+          >
+            <IonIcon icon={more} mode="md" />
+          </IonButton> */}
+        </IonItem>
+      </ListItemSizeWrapper>
     </div>
   );
+};
+
+MyListsItem.propTypes = {
+  createdAt: PropTypes.object.isRequired,
+  updatedAt: PropTypes.string,
+  initials: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+  handleDeleteClicked: PropTypes.func.isRequired
 };
 
 export default withRouter(MyListsItem);

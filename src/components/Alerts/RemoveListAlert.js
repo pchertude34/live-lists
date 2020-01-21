@@ -34,8 +34,8 @@ const RemoveListAlert = props => {
 
 RemoveListAlert.propTypes = {
   showAlert: PropTypes.bool.isRequired,
-  list: PropTypes.any.isRequired,
-  onRemove: PropTypes.func,
-  onDismiss: PropTypes.func
+  list: PropTypes.any,
+  onRemove: PropTypes.func.isRequired,
+  onDismiss: PropTypes.func.isRequired
 };
 export default RemoveListAlert;

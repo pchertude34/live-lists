@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
+import { Plugins } from '@capacitor/core';
 import { firestoreConnect } from 'react-redux-firebase';
 import { removeList } from '../../store/actions/listActions';
 import {
@@ -20,6 +21,8 @@ import MyListsItem from '../../components/Lists/MyListsItem';
 import RemoveListAlert from '../../components/Alerts/RemoveListAlert';
 import ShareListAlert from '../../components/Alerts/ShareListAlert';
 import { MY_LISTS_STORE } from '../../constants';
+
+const { Clipboard } = Plugins;
 
 const Home = props => {
   const [showRemoveListAlert, setShowRemoveListAlert] = useState(false);
@@ -42,6 +45,13 @@ const Home = props => {
 
   const handleListRemove = listId => {
     props.removeList(listId);
+  };
+
+  const handleListCodeCopy = listCode => {
+    console.log('Trying to copy', listCode);
+    Clipboard.write({
+      string: listCode
+    });
   };
 
   /**
@@ -88,6 +98,8 @@ const Home = props => {
         />
         <ShareListAlert
           showAlert={showShareListAlert}
+          list={selectedList}
+          onCopy={handleListCodeCopy}
           onDismiss={() => setShowShareListAlert(false)}
         />
       </IonContent>

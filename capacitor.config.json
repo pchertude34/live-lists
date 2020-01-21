@@ -1,7 +1,7 @@
 {
-  "appId": "io.ionic.starter",
-  "appName": "live-lists",
+  "appId": "com.paytonchertude.livelists",
+  "appName": "Live Lists",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "build"
+  "webDir": "www"
 }

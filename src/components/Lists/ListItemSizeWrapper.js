@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   IonItemSliding,
   IonItemOption,
@@ -38,14 +39,19 @@ function listWrapper(ChildComponent, props) {
         <IonItemOption
           type="button"
           style={{ padding: '.8rem' }}
-          onClick={props.handleEditClicked}
+          onClick={props.onPrimaryClicked || props.handleEditClicked}
         >
-          <IonIcon slot="icon-only" icon={create} />
+          <IonIcon slot="icon-only" icon={props.primaryIcon || create} />
         </IonItemOption>
       </IonItemOptions>
       {ChildComponent}
     </IonItemSliding>
   );
 }
+
+ListItemSizeWrapper.propTypes = {
+  primaryIcon: PropTypes.any,
+  onPrimaryClicked: PropTypes.func
+};
 
 export default ListItemSizeWrapper;

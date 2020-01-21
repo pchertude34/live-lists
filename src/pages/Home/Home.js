@@ -18,10 +18,12 @@ import { add } from 'ionicons/icons';
 import Header from '../../components/Header/Header';
 import MyListsItem from '../../components/Lists/MyListsItem';
 import RemoveListAlert from '../../components/Alerts/RemoveListAlert';
+import ShareListAlert from '../../components/Alerts/ShareListAlert';
 import { MY_LISTS_STORE } from '../../constants';
 
 const Home = props => {
   const [showRemoveListAlert, setShowRemoveListAlert] = useState(false);
+  const [showShareListAlert, setShowShareListAlert] = useState(false);
   const [selectedList, setSelectedList] = useState();
 
   /**
@@ -31,6 +33,11 @@ const Home = props => {
   const handleDeleteClicked = list => {
     setSelectedList(list);
     setShowRemoveListAlert(true);
+  };
+
+  const handleShareClicked = list => {
+    setSelectedList(list);
+    setShowShareListAlert(true);
   };
 
   const handleListRemove = listId => {
@@ -54,6 +61,7 @@ const Home = props => {
         description={list.description}
         createdAt={list.createdAt}
         handleDeleteClicked={() => handleDeleteClicked(list)}
+        handleShareClicked={() => handleShareClicked(list)}
       />
     );
   });
@@ -78,6 +86,10 @@ const Home = props => {
           onDismiss={handleRemoveListAlertDismiss}
           onRemove={handleListRemove}
         />
+        <ShareListAlert
+          showAlert={showShareListAlert}
+          onDismiss={() => setShowShareListAlert(false)}
+        />
       </IonContent>
     </IonPage>
   );
@@ -99,10 +111,7 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default compose(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  ),
+  connect(mapStateToProps, mapDispatchToProps),
   firestoreConnect(props => [
     {
       collection: 'lists',

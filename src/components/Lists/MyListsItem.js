@@ -4,7 +4,7 @@ import moment from 'moment';
 import { withRouter } from 'react-router-dom';
 
 import { IonItem, IonAvatar, IonIcon, IonButton } from '@ionic/react';
-import { more } from 'ionicons/icons';
+import { share } from 'ionicons/icons';
 import ListItemSizeWrapper from './ListItemSizeWrapper';
 
 import './MyListsItem.scss';
@@ -42,7 +42,12 @@ const MyListsItem = props => {
             : `Created ${moment(props.createdAt.toDate()).fromNow()}`}
         </i>
       </div>
-      <ListItemSizeWrapper {...props} isLargeScreen={isLargeScreen}>
+      <ListItemSizeWrapper
+        {...props}
+        isLargeScreen={isLargeScreen}
+        primaryIcon={share}
+        onPrimaryClicked={props.handleShareClicked}
+      >
         <IonItem
           color="light"
           button
@@ -84,7 +89,8 @@ MyListsItem.propTypes = {
   initials: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  handleDeleteClicked: PropTypes.func.isRequired
+  handleDeleteClicked: PropTypes.func.isRequired,
+  handleShareClicked: PropTypes.func.isRequired
 };
 
 export default withRouter(MyListsItem);

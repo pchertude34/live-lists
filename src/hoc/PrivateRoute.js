@@ -7,7 +7,7 @@ const PrivateRoute = ({ component: Component, auth, ...rest }) => {
     <Route
       {...rest}
       render={props => {
-        if (auth.isLoaded && !auth.isEmpty) return <Component />;
+        if (auth.isLoaded && !auth.isEmpty) return <Component {...props} />;
         else
           return (
             <Redirect to={{ pathname: '/signin', from: props.location }} />

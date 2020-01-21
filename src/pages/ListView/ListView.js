@@ -28,6 +28,7 @@ import EditItemModal from '../../components/Modals/EditItemModal';
 import { MY_LISTS_STORE } from '../../constants';
 
 const ListView = props => {
+  console.log('props', props);
   const [newListItem, setNewListItem] = useState('');
   const [showPopover, setShowPopover] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState('');
@@ -178,15 +179,17 @@ const mapDispatchToProps = dispatch => {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  firestoreConnect(props => [
-    {
-      collection: 'lists',
-      doc: props.match.params.listId
-    },
-    {
-      collection: 'listItems',
-      doc: props.match.params.listId,
-      queryParams: ['name']
-    }
-  ])
+  firestoreConnect(props => {
+    return [
+      {
+        collection: 'lists',
+        doc: props.match.params.listId
+      },
+      {
+        collection: 'listItems',
+        doc: props.match.params.listId,
+        queryParams: ['name']
+      }
+    ];
+  })
 )(ListView);
